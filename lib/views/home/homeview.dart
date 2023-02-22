@@ -24,6 +24,11 @@ class _HomeViewState extends State<HomeView> {
         },
         child: Text("data"),
       ),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+      ),
       body: FutureBuilder(
           future: getUsers(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -35,8 +40,13 @@ class _HomeViewState extends State<HomeView> {
                       title: Text(snapshot.data.data[index].name),
                       subtitle: Row(
                         children: [
-                          Text(snapshot.data.data[index].username),
+                          Column(
+                            children: [
+                              Text(snapshot.data.data[index].username),
                           Text(snapshot.data.data[index].email),
+                          Text(snapshot.data.data[index].phone.toString())
+                            ],
+                          )
                         ],
                       ),
                       trailing: Wrap(
@@ -57,6 +67,8 @@ class _HomeViewState extends State<HomeView> {
                                 TextEditingController usernamesController =
                                     TextEditingController();
                                 TextEditingController emailsController =
+                                    TextEditingController();
+                                    TextEditingController phonesController =
                                     TextEditingController();
                                 showDialog(
                                     context: context,
@@ -79,6 +91,11 @@ class _HomeViewState extends State<HomeView> {
                                               decoration: InputDecoration(
                                                   hintText: 'email'),
                                             ),
+                                             TextField(
+                                              controller: phonesController,
+                                              decoration: InputDecoration(
+                                                  hintText: 'phone'),
+                                            ),
                                             SizedBox(
                                               height: 20,
                                             ),
@@ -89,6 +106,7 @@ class _HomeViewState extends State<HomeView> {
                                                     name: namesController.text,
                                                      username: usernamesController.text,
                                                       email: emailsController.text,
+                                                      phone: phonesController.text,
                                                   ));
                                                setState(() {
                                                });

@@ -13,6 +13,8 @@ class _AddUserDataState extends State<AddUserData> {
   TextEditingController nameController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+    TextEditingController phoneController = TextEditingController();
+
   clear() {
     setState(() {
       nameController.clear();
@@ -24,6 +26,11 @@ class _AddUserDataState extends State<AddUserData> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+      ),
       body: Column(
         children: [
           TextField(
@@ -38,15 +45,20 @@ class _AddUserDataState extends State<AddUserData> {
             controller: emailController,
             decoration: InputDecoration(hintText: "email"),
           ),
+            TextField(
+            controller:phoneController,
+            decoration: InputDecoration(hintText: "phone"),
+          ),
           Column(
             children: [
               ElevatedButton(
                   onPressed: () async {
-                    await postUser(
-                      Data(
+                    await postUser(Data(
                         name: nameController.text,
                         username: usernameController.text,
-                        email: emailController.text));
+                        email: emailController.text,
+                        phone: phoneController.text,
+                        ));
                     Navigator.pop(context);
                   },
                   child: Text("data"))
